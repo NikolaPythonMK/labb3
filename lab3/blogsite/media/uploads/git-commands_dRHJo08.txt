@@ -1,0 +1,88 @@
+git checkout -- filename : Gi brishe site promeni shto ne se staged.
+git reset HEAD filename : Im pravi unstage na site promeni vo staging area. Ako vo megjuvreme imame i promeni shto ne se vo staging area, na tie shto sme im napraile unstage se gubat.
+git diff : gi pokazhuva razlikite od poslednoto menuvanje na fajlot i segashniot fajl
+git diff --staged : gi pokazhuva razlikite od posledniot commit i promenite shto se vo staging area.
+git reset --soft HEAD^ ili git reset --soft HEAD~1 : Go ponishtuva posledniot commit i promenite shto bile vo toj commit gi stava vo staging area. Kolku kapchinja tolku commits ke se ponishat. Isto i so brojot kaj tildata.
+git reset --hard HEAD^ ili git reset --hard HEAD~1 : Slichno kako --soft, no promenite ne se stavaat vo staging area, tuku se GUBAT!
+git commit --amend -m "some message" : Ke go smeni posledniot commit, taka shto vo nego ke go dodade toa shto e momentalno vo staging area i isto taka ke ja smeni porakata na posledniot commit
+git remote add origin https://... : Dodadi novo remote repo (git remote add <repo_name> <repo_address>)
+git remote -v : Izlistaj gi site remote repozitoriumi
+git push -u origin master : Push na lokalnata granka master na remote repoto origin
+git pull : Pulling from the remote repo 
+git remote rm <name> : Remove remote repo
+git add "*.txt" : Ke im napravi stage na site txt fajlovi vo proektot. Rekurzivno ke gi izmine site direktoriumi.
+git add *.txt : Ke im napravi stage na site txt fajlovi vo momentalniot direktorium vo koj se naogjame. Ne izminuva rekurzivno.
+Otkako ke napravime git push NE TREBA da pravime: git reset --soft, git reset --hard, git commit --amend.
+git clone <address> : Clone remote repo
+git clone <address> <name> : Clone remote repo into directory named <name>
+git pull = git fetch + git merge origin/master
+
+Koga ima konflikti, Git go menuva fajlot vo kojshto ima konflikti i dodava nekolku linii.
+Delot od <<<<<HEAD do ======= e nashata verzija shto ja imame lokalno, 
+a delot od ===== do >>>>>> e verzijata shto ja ima na remote repoto.
+
+git push origin bugfix : Push na lokalnata granka bugfix na remote repozitoriumot origin. Ako ne postoi bugfix na origin ke bide kreirana.
+git branch -r : List all REMOTE branches.
+git remote show origin : Dava informacii za remote repozitoriumot origin, kako na primer koi se fetch i push URLs, remote branches, local branches configured for git pull/ git push.
+git push origin :bugfix : Ja brishe REMOTE grankata bugfix, no lokalnata ne ja brishe. Mora manuelno da ja izbrisheme so git branch -d.
+git remote prune origin : Gi brishe site lokalni granki koi sledele remote granki, no veke tie remote granki se izbrishani.
+
+git push heroku-staging staging:master : Napravi push na lokalnata granka staging kon remote grankata master koja se naogja na remote repozitoriumot heroku-staging
+git push <remote_repo> <local_branch>:<remote_branch> : Push na local branch kon remote branchot na remote repo  
+
+A tag is a reference to a commit.
+git tag : Gi lista site tagovi koi gi imame
+git checkout v0.0.1 : Napravi check out na kodot kaj komitot sto e referenciran od tagot v0.0.1
+git tag -a v0.0.3 -m "version 0.0.3" : Za dodavanje na nov tag (lokalno)
+git push --tags : Push na site lokalni tagovi kon remote repo
+
+git rebase : Ke napravi rebase na grankata na koja se naogjame so nejzinata upstream granka. Primer, ako se naogjame na master, togash git rebase e isto so git rebase origin/master.
+git rebase <branch> : Komitite od branchot na koj se naogjame momentalno koi gi nema vo branchot <branch> ke gi stavi vo temp zona. Potoa, komitite od <branch> koi gi nema vo branchot vo koj se naogjame ke gi izvrshi eden po eden vo toj branch. I potoa na kraj komitite od temp zonata ke se stavat na kraj vrz tie komiti.
+Za da nema merge komiti namesto git pull (fetch + merge), pravime git fetch pa git rebase.
+git pull --rebase : Pull so rebase (fetch + rebase), namesto obichen pull (fetch + merge)
+
+Za update na local feature branch gi izvrshuvame slednite komandi:
+git checkout develop 		# switch to develop
+git pull --rebase 		# pull from origin/develop
+git checkout feature-branch 	# switch to the feature branch
+git rebase develop 		# rebase feature-branch onto develop (zemi gi site komiti od develop i stavi gi na feature-branch)
+
+Za update na remote (shared) feature branch gi izvrshuvame slednite komandi:
+git checkout develop
+git pull --rebase
+git checkout feature-branch
+git merge --no-ff develop	# merge develop into feature-branch
+git push origin feature-branch	# push feature-branch to origin
+
+Za update na remote feature branch ne koristime rebase bidejki ke ja smeni commit istorijata kaj site kolaboratori na toj branch,
+a toa ne e dobro. Zatoa koristime merge, i pokraj toa shto moze da imame merge komiti!
+
+Sekogash pred da kreirame feature-branch od develop, treba da go apdejtirame develop so najnovite promeni od remote repo:
+git checkout develop
+git pull --rebase
+git checkout -b feature-branch
+
+Git commit subject treba da se pishuva na zapoveden nachin.
+Treba da odgovara na porakata: If applied, this commit will ...
+
+git log --one-line: Go dava sekoj komit vo edna linija
+git log --stat : Dava informacija sto bilo smeneto vo toj komit
+git log --patch : Shows file diff
+
+git rebase -i : Interactive rebase mode
+
+git stash
+git stash save
+git stash apply
+git stash drop
+git stash clear
+git stash pop = git stash apply + git stash drop
+git stash list
+git stash save --keep-index
+git stash save --include-untracked
+git stash save "stash message"
+git stash show
+git stash branch <branch-name> stash@{0} : Ako sakame da go aplicirame stashot 0 na nekoja druga granka koja sto ke bide avtomatski kreirana
+
+git push origin master : Pushni gi promenite od branchot master kon remote repoto origin
+git pull <remote_name> <branch_name> : Napravi pull od branchot <branch_name> sto se naogja na remote repoto <remote_name>

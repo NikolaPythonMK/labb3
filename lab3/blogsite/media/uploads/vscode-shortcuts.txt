@@ -1,0 +1,6 @@
+ALT + mouse click = dupliciranje na kurser kaj sakam
+CTRL + ALT + ARROW KEYS = dupliciranje na kurser horizontalno/vertikalno
+ALT + ARROW KEYS = premestuvanje na linija gore/dole
+ALT + SHIFT + ARROW KEYS = kopiranje na linija gore/dole
+CTRL + D = selektiranje na zbor vo koj se naogja kurserot i so sekoe sledno pritiskanje na D go selektira i sledniot takov zbor
+CTRL + P = naogjanje na file spored ime

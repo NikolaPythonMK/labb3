@@ -1,0 +1,1 @@
+- @Subselect se koristi za mapiranje na immutable, read-only entitet vo SQL query, namesto vo tabela vo baza. Ako ne koristime Subselect, Hibernate avtomatski ke generira tabela vo baza za toj entitet ako takva ne postoi, a toa mozebi ne go sakame.
